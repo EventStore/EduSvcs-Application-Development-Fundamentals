@@ -1,0 +1,12 @@
+{
+  "name": "node_esdb_hello_world_with_codespaces",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "example for thursday codespae demo",
+  "main": "index.js",
+  "author": "Tom Hanlon",
+  "license": "MIT",
+  "dependencies": {
+    "@eventstore/db-client": "^6.1.0"
+  }
+}
