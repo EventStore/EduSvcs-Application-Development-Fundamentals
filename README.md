@@ -1,2 +1,9 @@
-# training_developing_Event_Sourced_Applications_with_EventStoreDB
-Content for the Developers Course
+This is the repo for the Developers course
+
+# Structure
+
+I think I am going to try the following
+
+1 Branch for the slides, another branch for the labs
+
+
