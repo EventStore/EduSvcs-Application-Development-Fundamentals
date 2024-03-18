@@ -1,0 +1,2 @@
+# training_developing_Event_Sourced_Applications_with_EventStoreDB
+Content for the Developers Course
