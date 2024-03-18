@@ -1,0 +1,7 @@
+/* @theme your-theme */
+
+@import 'default';
+
+h1 {
+  color: red;
+}
