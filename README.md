@@ -30,7 +30,13 @@ Click on the code button and launch
 
 Run this command in a terminal in vscode to launch eventstoredb
 
+**Note the latest release of the docker container will not run with this command**
+
 docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 eventstore/eventstore:latest --insecure --run-projections=All --enable-external-tcp --enable-atom-pub-over-http
+
+** Use this command instead until the issue with latest is resolved **
+
+docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 eventstore/eventstore:lts --insecure --run-projections=All --enable-external-tcp --enable-atom-pub-over-http
 
 ## Testing the functionality of your environment
 
