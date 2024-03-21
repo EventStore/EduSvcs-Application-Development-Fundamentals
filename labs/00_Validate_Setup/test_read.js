@@ -3,20 +3,31 @@ import { jsonEvent } from '@eventstore/db-client';
 
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
 
-const userId = "ms_smith";
-const movieId = "homealone";
-const seatId = "seat1";
+//const userId = "ms_smith";
+//const movieId = "homealone";
+//const seatId = "seat1";
 
-const reservationId = `res_${movieId}_${seatId}`;
+//const reservationId = `res_${movieId}_${seatId}`;
+
+//try {
+//  nonExistentFunction();
+//} catch (error) {
+//  console.error(error);
+  // Expected output: ReferenceError: nonExistentFunction is not defined
+  // (Note: the exact output may be browser-dependent)
+//}
+
 
 let events = client.readStream(
-  "res_homealone_seat1",
+  "test_Stream",
   {
     fromRevision: START,
     direction: FORWARDS,
     maxCount: 20
   }
+
 );
+
 
 // const events = client.readStream("$all", {
 //   direction: FORWARDS,
