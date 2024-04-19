@@ -1,5 +1,11 @@
 This is the repo for the Developers course
 
+# YOU ARE IN THE IDEMPOTENCY BRANCH
+
+This is an experiemental branch that may or may not persist,
+
+---------
+
 # Structure
 
 The slides branch will be used for slide development

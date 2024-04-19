@@ -7,6 +7,7 @@
   "author": "Tom Hanlon",
   "license": "MIT",
   "dependencies": {
-    "@eventstore/db-client": "^6.1.0"
+    "@eventstore/db-client": "^6.1.0",
+    "uuid": "^9.0.1"
   }
 }
