@@ -1,50 +1,71 @@
-This is the repo for the Developers course
+Welcome to the GitHub Repo for the Developing Event Sourced Applications with EventStoreDB
 
-# Structure
+# Overview
 
-The slides branch will be used for slide development
+This content is meant to be be used as course content for Instructor Led delivery, or Self Paced. 
 
-There is a vscode plugin for MARPIT to display slide preview.
+# Labs
 
-This plugin does not seem to work automatically in codespaces, it might take a manual install.
+You will find a "labs" directory in this content with a folder for each module, and sub folders for each lab. 
 
-Best Practice for now is to use VScode or the editor of your choice locally, and then commit changes to the slides branch.
+## Solutions
+There is a solutions folder available but please try to work through the labs on your own before checking the solutions
 
-I am not sure using a branch for slides is the best practice longterm, a more seasoned github user will have to advise.
+## Running the Labs
 
-# Main Branch for Course Content
+This content is designed to be run in Github Codespaces. 
 
-For delivery of a training course we would have to find some way to make this content available or keep it available? Maybe Fork to a temporary repo at delivery time?
+If you wanted to run it locally, you would have to start an EventStoreDB instance locally, a Docker container is available for that. 
+
+**Please note that the instructor will only assist in debugging of Code ran in GitHub Codespaces, as that environment we can control. Your local environment might have different versions of software packages making it difficult for us to debug live in class. **
+
+That said, the content should be easy to reproduce locally with a minor amount of effort.
+
+
+# Programming Language
+
+This content is written using Node.js.
+
+## Why Node.js
+
+We felt that using Node.JS we could reach the largest audience. 
+
+## Some FAQ's
+
+Why not TypeScript?
+
+TypeScript is great, we love it, you should look into using it. But, Typescript is enhanced javascript, and your TypeScript code transpiles down to javascript code. By going straight to Javascript the course can focus on reading and writing events to EventStoreDB without getting distracted by Typescript=> Javascript discussion. If you learn to interact with EventStoreDB in javasctipt you will easilly be able to transfer those skills to TypeScript.
+
+Why not Java? 
+
+Jave is great, we love java. We just had to choose a language to focus on. The client libraries for each language are very similar, it is our assumption that a Java developer will be able to take what they learn from this class and apply it to Java. 
+
+Why not Python?
+
+Python is great, we love Python. We just decided to teach this in nodeJS, it is our assumption that a Python developer will be able to take what they learn here and apply it to an application built in Python. 
+
+Why not .NET? 
+
+.NET is great, EventStoreDB is written in .NET. We felt an interpretted language is best for a general audience. 
 
 ## Codespaces
 
 The content is built with a configuration file for codespaces.
 
+That is the .devcontainer file you see as part of the repo. Please do not edit that. 
+
 Codespaces provides a docker environment and a browser implementation of VScode.
+
 
 ## How to use codespaces
 
-Click on the code button and launch
+The Instructor will demonstrate
 
 ## Running EventstoreDB in the Docker container
 
-Run this command in a terminal in vscode to launch eventstoredb
+This repo provides a shell script that will start and restart the EventStoreDB docker container local to the CodeSpaces container. 
 
-**Note the latest release of the docker container will not run with this command**
-
-docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 eventstore/eventstore:latest --insecure --run-projections=All --enable-external-tcp --enable-atom-pub-over-http
-
-** Use this command instead until the issue with latest is resolved **
-
-docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 eventstore/eventstore:lts --insecure --run-projections=All --enable-external-tcp --enable-atom-pub-over-http
-
-## Testing the functionality of your environment
-
-node index.js will verify a working node environment
-
-node append.js will append to a stream
-
-node read.js will read from the stream and display in the console
+The Instructor will demonstrate.
 
 
 
