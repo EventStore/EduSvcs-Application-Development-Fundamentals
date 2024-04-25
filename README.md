@@ -67,5 +67,8 @@ This repo provides a shell script that will start and restart the EventStoreDB d
 
 The Instructor will demonstrate.
 
+**NOTE** The course is written so that each user has their own instance of EventStoreDB.
+
+**NOTE** Running ./start_cluser.sh will clear you current EventStoreDB instance and return an Empty instance. This is also by design. This allows to isolate each exercise and avoid dependencies or conflicts. 
 
 
