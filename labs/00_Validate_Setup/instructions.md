@@ -14,35 +14,24 @@ A working environment consists of:
 
 Here is a list of the files in the folder and the functions they perform
 
-start_cluster.sh
+  1. **start_cluster.sh**:  This will start a docker container running EventStoreDB in single node, unsecured mode
 
-This will start a docker container running eventstoredb in single node, unsecured mode
+  2. **test_node.js**:  Verifies that you have a working node environment
 
-**test_node.js**
+  3. **test_append.js**:  Verifies that you can write an event to a stream into the EventStoreDB instance running in a Docker container
 
-Verifies that you have a working node environment
+  4.  **test_read.js**:  Verifies that you can read the events that were written in test_append.js
 
-**test_append.js**
-
-Verifies that you can write an event to a stream into the esdb instance running in a docker container
-
-**test_read.js**
-
-Verifies that you can read back the events that were written in test_append.js
-
-Note that ```test_read.js``` has no error handling code built in, the goal was to keep this code simple, if ```test_read.js``` returns an error it is most likely because you have to run ```test_append.js``` first
+Note that ```test_read.js``` has no error handling code built in.  The goal for the training is to keep this code simple.  If ```test_read.js``` returns an error, it is most likely because ```test_append.js``` needs to be executed first.
 
 
 ## Instructions
 
-1. Run start_cluster.sh
+1. Start a Docker container running EventStoreDB.
 
-Open a terminal window in vscode and
-run this command ```./start_cluster.sh```
+Run start_cluster.sh by opening the terminal window in VS Code (embedded in Codespaces) and execute the command ```./start_cluster.sh```
 
-This will start a docker container running eventstoredb. 
-
-clicking on the browser icon (a little globe) in the ports tab, will take you to the webui for eventstoredb. Note you want port 2113.
+Click on the browser icon (a little globe) in the PORTS tab.  Doing so will take you to the WebUI for EventStoreDB. Note you want port 2113.
 
 2. Verify that your node environment is working
 
