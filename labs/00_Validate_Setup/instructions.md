@@ -44,7 +44,7 @@ In the terminal window type this command.
 Run this command to write an event to a stream.
 ```node test_append.js```
 
-Check the webui in the ```Stream Browser`` tab you should see the stream ```Test_Stream``` and the event you just wrote to the stream
+Check the webui in the ```Stream Browser``` tab you should see the stream ```test_Stream``` and the event you just wrote to the stream
 
 ```test_Stream```
 
