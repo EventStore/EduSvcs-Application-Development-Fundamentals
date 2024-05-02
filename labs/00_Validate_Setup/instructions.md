@@ -35,7 +35,7 @@ Click on the browser icon (a little globe) in the PORTS tab.  Doing so will take
 
 2. Verify that your node environment is working
 
-In the termian window type this command.
+In the terminal window type this command.
 
 ```node test_node.js```
 
