@@ -49,7 +49,22 @@ I could use some help with verbage.
 
 ---
 
+# How to Provide Feedback
 
+I will open up the following questions in slack
+
+Please open a thread for responses. 
+Importance, use-when, how to know when this is used correctly/incorrectly
+Any concise summary of feature that you would use
+
+1. Use of ID unique check before disk write on server
+2. Any
+3. No Stream
+4. Yes Stream
+5. Version # 
+
+
+---
 # Available Settings
 
 * ExpectedVersion.Any / StreamState.Any

@@ -7,23 +7,15 @@ const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=fa
 /*
 ExpectedVersion NO_STREAM, 
 at most this will succeed in an append one time.
-If you have ran any of the other code in this folder 
-it will not succeed in any appends
+NOTE the stream name is different than in example 01, and 02
 
-
+Best way to demo is change stream to a non existant stream and run twice
 
 */
 
-const streamName = "test_Stream";
+const streamName = "test_Stream11";
 
-// use uuid to set id for the event
-// This takes the format of a Uuid 
-// and is used to uniquely identify 
-// the event you are trying to append. 
-// If two events with the same Uuid are 
-// appended to the same stream in quick 
-// succession EventStoreDB will only append one copy of the event to the stream.
-//
+
 const eventID = uuidv4();
 
 
@@ -34,7 +26,7 @@ const event = jsonEvent({
      "id": eventID
    },
    metadata: {
-    "concurrency_setting": "expectedRevision: ANY"
+    "concurrency_setting": "expectedRevision: NO_STREAM"
    }
 });
 
@@ -44,21 +36,19 @@ var appendResult = await client.appendToStream(streamName, event, {expectedRevis
 
 }catch (error) {
   console.log("*********ERROR********");
+  console.log("##### YOUR EVENT WAS NOT WRITTEN#####")
   console.error(error);
   
 }
 client.dispose();
-//await client.appendToStream("no-stream-stream", eventTwo, {
-//  expectedRevision: NO_STREAM,
-//})
-console.log('Your eventID is', eventID);
-console.log('Your eventID is', eventID);
 
-// If the append failed appendResult will not be defined
-//
-//console.log(appendResult.position);
-//console.log(appendResult.success);
-//console.log(appendResult.nextExpectedRevision);
-//
-//I need to ask a node expert if I am abusing the asynchronous call with await her
-// honeslty I do not know, I assume dispose closes the client. %
+// appendResult will be undefined in case of failed write
+// code block below only executed on succesful write
+if (appendResult) {
+console.log("##YOUR EVENT WAS WRITTEN");
+console.log(appendResult.position);
+console.log(appendResult.success);
+console.log(appendResult.nextExpectedRevision);
+}
+
+

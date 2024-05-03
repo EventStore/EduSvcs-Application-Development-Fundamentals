@@ -3,69 +3,52 @@ import { jsonEvent } from '@eventstore/db-client';
 import { v4 as uuidv4 } from 'uuid';
 
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
-
-
-
 const streamName = "test_Stream";
 
-// use uuid to set id for the event
-// This takes the format of a Uuid 
-// and is used to uniquely identify 
-// the event you are trying to append. 
-// If two events with the same Uuid are 
-// appended to the same stream in quick 
-// succession EventStoreDB will only append one copy of the event to the stream.
-//
-const eventID = uuidv4();
-// Note the addition of metadata to this event
-// In can be used to include metadata
-// in this case the concurrency control setting is included
 /*
+HOW TO DEMO
+1. Run this code as is
+First event is expected version ANY, it will always succeed
+Second event is a specific version number, it will only succeed
+if it is the next event, if another client writes to the stream 
+between the first write and the second it will fail
 
-Write one event
+2. Uncomment the interloper event, and cause the second write to fail
 
+NOTE we are not using uuid here, the server will assign an id
 */
 
-/*
 
-First Event
-
-*/ 
-
-const event = jsonEvent({
-  type: "Same_Client_First_Write",
+const event1 = jsonEvent({
+  type: "Same_Client_First_Write_EXPECTED_VERSION_ANY",
   data: {
      "test_value": "01",
-     "id": eventID
+   //  "id": eventID
    },
    metadata: {
-    "concurrency_setting": "expectedRevision: ANY"
+    "concurrency_setting": "expectedRevision: Integer Value"
    }
 });
 
-/*
 
-Second Event
-
-*/
-
-
+// second event
 const event2 = jsonEvent({
-  type: "Same_Client_Second_Write",
+  type: "Same_Client_Second_Write_EXPECTED_Version_Integer_Value",
   data: {
      "test_value": "01",
-     "id": eventID
+     //"id": eventID
    },
    metadata: {
-    "concurrency_setting": "expectedRevision: ANY"
+    "concurrency_setting": "expectedRevision: Integer Value"
    }
 });
 
+// Interloper event
 const interloper_event = jsonEvent({
   type: "interloper_event",
   data: {
      "test_value": "01",
-     "id": eventID
+     //"id": eventID
    },
    metadata: {
     "concurrency_setting": "expectedRevision: ANY"
@@ -73,7 +56,7 @@ const interloper_event = jsonEvent({
 });
 
 // Commit First Write
-const appendResult = await client.appendToStream(streamName, event, {expectedRevision: ANY} );
+const appendResult = await client.appendToStream(streamName, event1, {expectedRevision: ANY} );
 /*
 Capture the position of the stream and make sure
 no other events were added before you
@@ -89,7 +72,7 @@ to the stream
 note the second write will fail due to position check
 */
 
-//const interloper = await client.appendToStream(streamName, interloper_event, {expectedRevision: ANY} );
+const interloper = await client.appendToStream(streamName, interloper_event, {expectedRevision: ANY} );
 
 
 // Write the second event only if nobody intervened in the stream
@@ -105,7 +88,6 @@ client.dispose();
 //await client.appendToStream("no-stream-stream", eventTwo, {
 //  expectedRevision: NO_STREAM,
 //})
-console.log('Your eventID is', eventID);
 console.log(appendResult.position);
 console.log(appendResult.success);
 console.log(appendResult.nextExpectedRevision);
