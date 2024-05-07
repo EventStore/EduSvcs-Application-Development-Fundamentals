@@ -1,4 +1,4 @@
-# Exercise 2 (Appending Events to a Stream)
+# Exercise 1 (Appending Events to a Stream)
 
 # Summary
 
@@ -10,7 +10,7 @@ In this exercise, you’ll create an event with event data and append it to a st
 
 ```
 Id : uuid
-Type : orderShipped
+Type : itemShipped
 Data :
 customerId : 1
 Price : 10.00
