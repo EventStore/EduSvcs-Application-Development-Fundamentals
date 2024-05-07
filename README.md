@@ -71,4 +71,30 @@ The Instructor will demonstrate.
 
 **NOTE** Running ./start_cluser.sh will clear you current EventStoreDB instance and return an Empty instance. This is also by design. This allows to isolate each exercise and avoid dependencies or conflicts. 
 
+# Running the Content Locally
 
+Full instructions on setting up a local Node environment is available in EventStoreDB's "From Scratch" series.
+<provide link when I have it>
+
+If you wanted to clone this repo and run the code locally you would do the following. 
+
+```
+git clone <repo name>
+```
+
+Once it is downloaded you would want to run ``` yarn install ``` to download the dependencies locally.
+
+## Running the EventStoreDB docker container locally
+
+The content in this repository will work with a locally available EventStoreDB container running in unsecured mode.
+
+Here are the instructions, https://hub.docker.com/r/eventstore/eventstore.
+
+Basically the process is
+1. Install Docker
+2. Run
+   ```docker run --name esdb-node -it -p 2113:2113 -p 1113:1113 \
+    eventstore/eventstore:latest --insecure --run-projections=All \
+    --enable-external-tcp --enable-atom-pub-over-http```
+
+   
