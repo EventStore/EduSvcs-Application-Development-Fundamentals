@@ -9,7 +9,7 @@ Create an event with the following event data.
 
 ```
 Id : uuid
-Type : orderShipped
+Type : itemShipped
 Data :
 customerId : 1
 Price : 20.00
