@@ -21,28 +21,51 @@
 # If no, download and start
 
 
-if docker ps --format '{{.Names}}'| grep -q esdb;
-then echo -e '\nesdb docker container appears to be running\n';
+#!/bin/bash
+####
+# Docker management script for Eventstore Training Classes
+#####
 
-#docker ps --format '{{.Names}}'
+#!/bin/bash
+####
+# Docker management script for Eventstore Training Classes
+#####
 
-# The following steps work
+#!/bin/bash
+####
+# Docker management script for Eventstore Training Classes
+#####
 
-# 1 kill the container
 
-docker stop esdb-node
+# Docker container name
+container_name="esdb-node"
 
-## Remove the instance
-docker rm esdb-node
+# Check if the Docker container is already running
+if docker ps --format '{{.Names}}' | grep -q "$container_name"; then
+    echo -e "\n$container_name Docker container appears to be running\n"
 
-docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 \
-       eventstore/eventstore:lts --insecure --run-projections=All \
-       --enable-external-tcp --enable-atom-pub-over-http
+    # Stop the existing container
+    if docker stop "$container_name"; then
+        echo -e "\nStopping the container\n"
+    fi
 
-else
-    docker run -d --name esdb-node -it -p 2113:2113 -p 1113:1113 \
-	   eventstore/eventstore:lts --insecure --run-projections=All \
-	  --enable-external-tcp --enable-atom-pub-over-http
+    # Remove the existing container
+    if docker rm "$container_name"; then
+        echo -e "\nRemoving the container\n"
+    fi
 fi
 
 
+# Check if the Docker container is already running
+if ! docker ps --format '{{.Names}}' | grep -q "$container_name"; then
+    echo -e "\n$container_name Docker container appears to NOT be running\n"
+fi
+
+# Start a new container
+if ! docker run -d --name "$container_name" -it -p 2113:2113 -p 1113:1113 \
+    eventstore/eventstore:lts --insecure --run-projections=All \
+    --enable-external-tcp --enable-atom-pub-over-http; then
+    handle_error "Failed to start a new $container_name container"
+fi
+
+echo "Docker container $container_name started successfully"
