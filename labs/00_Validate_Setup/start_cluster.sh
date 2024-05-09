@@ -59,6 +59,10 @@ fi
 # Check if the Docker container is already running
 if ! docker ps --format '{{.Names}}' | grep -q "$container_name"; then
     echo -e "\n$container_name Docker container appears to NOT be running\n"
+        # Remove the existing container
+    if docker rm "$container_name"; then
+        echo -e "\nRemoving the container\n"
+    fi
 fi
 
 # Start a new container
