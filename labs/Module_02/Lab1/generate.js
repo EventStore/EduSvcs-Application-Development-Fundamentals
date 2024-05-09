@@ -51,7 +51,7 @@ const event5 = jsonEvent({
   type: "itemShipped",
   data: {
     customerId: "1",
-    price: "10.00",
+    amount: "10.00",
     item:"keyboard"
   },
 });
@@ -61,7 +61,7 @@ const event6 = jsonEvent({
   type: "itemShipped",
   data: {
     customerId: "1",
-    price: 20.00,
+    amount: "20.00",
     item:"mouse"
   },
 });
