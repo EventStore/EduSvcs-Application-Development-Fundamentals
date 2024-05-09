@@ -9,7 +9,7 @@ const event1 = jsonEvent({
  type: "itemAdded",
  data: {
    customerId: "1",
-   amount: "10.00",
+   amount: "50.00",
    item:"keyboard"
  },
 });
