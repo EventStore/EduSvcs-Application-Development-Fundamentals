@@ -21,21 +21,6 @@
 # If no, download and start
 
 
-#!/bin/bash
-####
-# Docker management script for Eventstore Training Classes
-#####
-
-#!/bin/bash
-####
-# Docker management script for Eventstore Training Classes
-#####
-
-#!/bin/bash
-####
-# Docker management script for Eventstore Training Classes
-#####
-
 
 # Docker container name
 container_name="esdb-node"
@@ -56,7 +41,7 @@ if docker ps --format '{{.Names}}' | grep -q "$container_name"; then
 fi
 
 
-# Check if the Docker container is already running
+# Check if the Docker container is NOT running
 if ! docker ps --format '{{.Names}}' | grep -q "$container_name"; then
     echo -e "\n$container_name Docker container appears to NOT be running\n"
         # Remove the existing container
@@ -69,7 +54,7 @@ fi
 if ! docker run -d --name "$container_name" -it -p 2113:2113 -p 1113:1113 \
     eventstore/eventstore:lts --insecure --run-projections=All \
     --enable-external-tcp --enable-atom-pub-over-http; then
-    handle_error "Failed to start a new $container_name container"
+    echo -e "Failed to start a new $container_name container"
 fi
 
 echo "Docker container $container_name started successfully"
