@@ -23,13 +23,13 @@ async function initializeStream(streamName) {
 }
 
 async function main() {
-    const streamName = "inventory-123";
+    const streamName = "creditCard-123";
 
     // Initialize the stream if it does not exist
     await initializeStream(streamName);
 
     // Initial state
-    var initialState = { stock: 0, maxCapacity: 1000 };
+    var initialState = { balance: 0, creditLimit: 1000 };
     var state = initialState;
 
     // Read existing events from the stream
@@ -40,63 +40,58 @@ async function main() {
         state = evolve(state, event?.event);
     }
 
-    // Example command
-    //const command = {type: "addStock", data: { amount: 1000 }};
+    // Command example
+    const command = { type: "makePurchase", data: { amount: 100 } };
 
-    const command = { type: "sellStock", data: { amount: 100 } };
-
+    // Decide on the new event based on the command and current state
     const event = decide(command, state);
 
     // Create a JSON event to append to the stream
     const jsonEventData = jsonEvent(event);
 
     // Append the new event to the stream
-     await client.appendToStream(streamName, jsonEventData);
+    await client.appendToStream(streamName, jsonEventData);
 
-     console.log("Event appended successfully:", jsonEventData);
+    console.log("Event appended successfully:", jsonEventData);
 }
 
 // Evolve function to update state based on events
 function evolve(state, event) {
-    if (event.type === "stockSold") {
-        state.stock -= event.data.amount;
-    } else if (event.type === "stockAdded") {
-        state.stock += event.data.amount;
-    } else if (event.type === "maxCapacityIncreased") {
-        state.maxCapacity += event.data.amount;
+    if (event.type === "purchaseMade") {
+        state.balance += event.data.amount;
+    } else if (event.type === "balancePaid") {
+        state.balance -= event.data.amount;
+    } else if (event.type === "creditLimitUpgrade") {
+        state.creditLimit += event.data.amount;
     }
     return state;
 }
 
 // Decide function to determine the event from a command and current state
 function decide(command, state) {
-    if (command.type === "sellStock") {
-        if (command.data.amount <= state.stock) {
+    if (command.type === "makePurchase") {
+        if (command.data.amount < (state.creditLimit - state.balance)) {
             const event = {
-                type: "stockSold",
+                type: "purchaseMade",
                 data: { amount: command.data.amount },
             };
             return event;
         } else {
-            throw new Error("Insufficient stock to sell");
+            throw new Error("Credit limit exceeded");
         }
     }
 
-    if (command.type === "addStock") {
-        if (command.data.amount + state.stock <= state.maxCapacity) {
-            const event = {
-                type: "stockAdded",
-                data: { amount: command.data.amount },
-            };
-            return event;
-        } else {
-            throw new Error("Exceeding maximum capacity");
-        }
-    }
-
-    if (command.type === "increaseMaxCapacity") {
+    if (command.type === "payBalance") {
         const event = {
-            type: "maxCapacityIncreased",
+            type: "balancePaid",
+            data: { amount: command.data.amount },
+        };
+        return event;
+    }
+
+    if (command.type === "upgradeCreditLimit") {
+        const event = {
+            type: "creditLimitUpgrade",
             data: { amount: command.data.amount },
         };
         return event;
