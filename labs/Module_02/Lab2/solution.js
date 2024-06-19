@@ -6,7 +6,7 @@ const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=fa
 let totalKeyboardSales = 0
 
 const subscription = client
- .subscribeToStream("orders", {
+ .subscribeToStream("order-123", {
    fromRevision: START,
  })
  .on("data", (resolvedEvent) => {
@@ -16,9 +16,9 @@ const subscription = client
 // Define the event handler function
 const handleEvent = async (resolvedEvent) => {
  const eventData = resolvedEvent.event?.data;
- if (eventData && eventData.item === "keyboard") {
+ if (eventData && resolvedEvent.event?.type === "itemShipped" && eventData.item === "keyboard" ) {
    console.log("Received event:", eventData);
-   totalKeyboardSales += eventData.price;
+   totalKeyboardSales += parseFloat(eventData.amount);
    console.log("the total keyboard sales is: " + totalKeyboardSales);
  }
 };
