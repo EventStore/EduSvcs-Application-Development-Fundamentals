@@ -18,6 +18,8 @@ Here is a list of the files in the folder and the functions they perform
 
   2. **test_environment.js**:  Verifies that you have a working node environment
 
+  3. **generate.js**:  Allows you to see and generate any events required up to a specific point in the demos and labs.
+
 
 ## Instructions
 
