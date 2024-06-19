@@ -5,10 +5,10 @@ const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=fa
 
 const event = jsonEvent({
   id: uuid(),
-  type: "orderShipped",
+  type: "itemShipped",
   data: {
     customerId: "1",
-    price: "10.00",
+    amount: "50.00",
     item:"keyboard"
   },
 });
