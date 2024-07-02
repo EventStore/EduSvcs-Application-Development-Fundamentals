@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid'; 
-
 function evolve(state, event) {
     switch (event.type) {
       case "inventoryAdded":
