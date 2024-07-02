@@ -1,6 +1,5 @@
 import { EventStoreDBClient, jsonEvent, START, FORWARDS } from "@eventstore/db-client";
 import { evolve, decide } from './decider.js';
-import { v4 as uuid } from 'uuid';
 
 // Establish a connection to the EventStoreDB
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
@@ -16,17 +15,14 @@ async function appendEvents(streamName, events) {
 }
 
 // Function to read events from the EventStoreDB using a filter
-async function readFilteredEvents(prefixes) {
+async function readEvents(streamName) {
   const initialState = { inventory: 0 };
   let state = initialState;
 
   try {
-    const events = client.readAll({
+    const events = client.readStream(streamName, {
       direction: FORWARDS,
-      fromPosition: START,
-      filter: {
-        streamNamePrefixes: prefixes
-      }
+      fromRevision: START
     });
 
     for await (const event of events) {
@@ -35,7 +31,7 @@ async function readFilteredEvents(prefixes) {
       }
     }
   } catch (error) {
-    console.error(`Error reading events with prefixes ${prefixes.join(', ')}: ${error.message}`);
+    console.error(`Error reading events from stream ${streamName}: ${error.message}`);
   }
 
   return state;
@@ -43,9 +39,10 @@ async function readFilteredEvents(prefixes) {
 
 // Main function to test the decider logic
 async function testDecider() {
-  // Read events from streams with the prefixes 'order-' and 'inventory-'
-  const prefixes = ['order-', 'inventory-'];
-  let state = await readFilteredEvents(prefixes);
+  const streamName = "inventory";
+
+  // Read events from the "inventory" stream
+  let state = await readEvents(streamName);
 
   console.log("Initial State:", state);
 
@@ -60,12 +57,6 @@ async function testDecider() {
       const newEvents = await decide(command, state);
       newEvents.forEach(event => {
         state = evolve(state, event);
-        let streamName;
-        if (event.type === "orderPlaced") {
-          streamName = `order-${uuid()}`;
-        } else {
-          streamName = "inventory-123";
-        }
         appendEvents(streamName, [event]);
       });
       console.log(`After command ${command.type}:`, state);
