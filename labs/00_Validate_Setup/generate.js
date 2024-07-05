@@ -25,19 +25,9 @@ const event2 = jsonEvent({
       item:"mouse"
     },
 });
-      
-const event3 = jsonEvent({
-    id: uuid(),
-    type: "orderRequested",
-    data: {
-      customerId: "1",
-      requestor: "John Smith",
-      email:"john@eventstore.com",
-    },
-});
 
 //from module 1 lab 1
-const event4 = jsonEvent({
+const event3 = jsonEvent({
     id: uuid(),
     type: "itemShipped",
     data: {
@@ -48,7 +38,7 @@ const event4 = jsonEvent({
 });
 
 //from module 2 demo 2
-const event5 = jsonEvent({
+const event4 = jsonEvent({
     id: uuid(),
     type: "itemShipped",
     data: {
@@ -59,7 +49,7 @@ const event5 = jsonEvent({
 });
 
 //from module 2 lab 2
-const event6 = jsonEvent({
+const event5 = jsonEvent({
     id: uuid(),
     type: "itemAdded",
     data: {
@@ -69,7 +59,7 @@ const event6 = jsonEvent({
     },
 });
 
-const event7 = jsonEvent({
+const event6 = jsonEvent({
     id: uuid(),
     type: "itemShipped",
     data: {
@@ -85,7 +75,6 @@ await client.appendToStream("order-123", event3);
 await client.appendToStream("order-123", event4);
 await client.appendToStream("order-123", event5);
 await client.appendToStream("order-123", event6);
-await client.appendToStream("order-123", event7);
 
 client.dispose();
 console.log("The events were added to the stream.")
