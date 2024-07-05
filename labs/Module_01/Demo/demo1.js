@@ -27,16 +27,5 @@ const event2 = jsonEvent({
 
 await client.appendToStream("order-123", event2);
 
-const event3 = jsonEvent({
- id: uuid(),
- type: "orderRequested",
- data: {
-   customerId: "1",
-   requestor: "John Smith",
-   email:"john@eventstore.com",
- },
-});
-
-await client.appendToStream("order-123", event3);
 client.dispose();
 console.log("The events were added to the stream.")
