@@ -2,17 +2,13 @@
 
 ## General Instructions
 
-Welcome to the lab folders for an eventstore training course. 
-
-These courses are designed to work with github codespaces.
+Several Event Store courses are designed to work with GitHub codespaces.
 
 See [here](https://github.com/features/codespaces) for documentation regarding codespaces. 
 
-This repo can also be ran locally. 
+This repo can also be run locally. You will need Docker, Node.js, and yarn installed locally to do so.
 
-You will need docker, nodejs and yarn installed locally in order to run it locally.
-
-Here are the steps you would follow. 
+Steps to run locally:
 
 1. git clone https://github.com/EventStore/training_developing_Event_Sourced_Applications_with_EventStoreDB.git
 
@@ -20,24 +16,22 @@ Here are the steps you would follow.
        eventstore/eventstore:lts --insecure --run-projections=All \
        --enable-external-tcp --enable-atom-pub-over-http```
 
-3. The directory is set up as a yarn managed node.js project, you will need to have node and yarn installed. 
+3. The directory is set up as a yarn-managed node.js project.  You must have node and yarn installed. 
 
-4. Run the tests in the lab folder ```00_Validate_Setup``` to verify a working local configuration
+4. Run the tests in the lab folder ```00_Validate_Setup``` to verify a working local configuration.
 
-5. Note that vscode may prompt you to run a "devcontainer" locally, based on the configuration present in the ```.devcontainer``` file that is used to configure codespaces. Setting up that environment would be another option to execute the code locally. 
+5. VScode may prompt you to run a "devcontainer" locally based on the configuration in the ```.devcontainer``` file used to configure codespaces. Setting up that environment would be another option for executing the code locally. 
 
 
 ## Specific Folders
 
-This directory has a folder for each lab. When switching to each folder to run a lab it is advised that you run the ```start_cluster.sh``` script. This will delete and refresh the docker container running eventstoreDB, thereby removing any artifacts from previous labs. 
+This directory has a folder for each exercise. When accessing a folder to run a lab, you are advised to run the ```start_cluster.sh``` script. This will delete and refresh the Docker container running EventStoreDB, removing any artifacts from previous labs. 
 
 ## Folder Structure
 
-In addition to the ```start_cluster.sh``` script, each folder will have code that you will complete. 
-
-Each folder will have an ```instructions.md``` file with instructions specific to that lab. 
+In addition to the ```start_cluster.sh``` script, each folder will have code for you to complete and an ```instructions.md``` file specific to that lab. 
 
 ## 00_validate_Setup
 
-Please validate that you have a working environment by switching to folder 00_Validate_Setup. Start by reading the ```instructions.md``` file in that directory
+Please validate that you have a working environment by reviewing folder 00_Validate_Setup. Start by reading the ```instructions.md``` file in that directory.
 
