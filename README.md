@@ -1,96 +1,82 @@
-Welcome to the GitHub Repo for the Developing Event Sourced Applications with EventStoreDB
-
+Welcome to the GitHub repository for the Event Store's **Application Development Fundamentals** training course.  
 # Overview
 
-This content is meant to be be used as course content for Instructor Led delivery, or Self Paced. 
+This content will be used as course content for instructor-led and self-paced offerings.   
 
 # Labs
 
-You will find a "labs" directory in this content with a folder for each module, and sub folders for each lab. 
+The "labs" directory contains a folder for each module and sub-folders for each lab. 
 
 ## Solutions
-There is a solutions folder available but please try to work through the labs on your own before checking the solutions
+Solutions are included in each module folder, but please try to work through the labs independently before checking the solutions.
 
 ## Running the Labs
 
-This content is designed to be run in Github Codespaces. 
+The exercises are designed to be run in GitHub Codespaces. 
 
-If you wanted to run it locally, you would have to start an EventStoreDB instance locally, a Docker container is available for that. 
+To run the code locally, you must start an EventStoreDB instance.  A Docker container is available for that. For more information on setting up your environment, please visit Event Store Academy's [From Scratch](https://academy.eventstore.com/from-scratch) series.  
 
-**Please note that the instructor will only assist in debugging of Code ran in GitHub Codespaces, as that environment we can control. Your local environment might have different versions of software packages making it difficult for us to debug live in class. **
+**Please note that in live training events, the instructor can only assist in debugging code run in GitHub Codespaces, as that is a controlled environment. Your local environment might have different versions of software packages making it difficult for us to debug live in class. **
 
 That said, the content should be easy to reproduce locally with a minor amount of effort.
 
-
 # Programming Language
 
-This content is written using Node.js.
+This code in this course is written using Node.js.
 
-## Why Node.js
+## FAQs
 
-We felt that using Node.JS we could reach the largest audience. 
+**Why not TypeScript?**
 
-## Some FAQ's
+TypeScript is great.  We love it, and you should look into using it. But TypeScript is enhanced Javascript, and your TypeScript code transpilers down to Javascript code. By going straight to Javascript, the course can focus on reading and writing events to EventStoreDB without getting distracted by the TypeScript => Javascript discussion. If you learn to interact with EventStoreDB in Javascript, you will easily be able to transfer those skills to TypeScript.
 
-Why not TypeScript?
+**Why not Java?** 
 
-TypeScript is great, we love it, you should look into using it. But, Typescript is enhanced javascript, and your TypeScript code transpiles down to javascript code. By going straight to Javascript the course can focus on reading and writing events to EventStoreDB without getting distracted by Typescript=> Javascript discussion. If you learn to interact with EventStoreDB in javasctipt you will easilly be able to transfer those skills to TypeScript.
+Jave is great.  We love Java. Since the client libraries for each language are very similar, we assume that a Java developer will be able to take what they learn from this class and apply it to Java. 
 
-Why not Java? 
+**Why not Python?**
 
-Jave is great, we love java. We just had to choose a language to focus on. The client libraries for each language are very similar, it is our assumption that a Java developer will be able to take what they learn from this class and apply it to Java. 
+Python is great.  We love Python. We assume that a Python developer will be able to take what they learn here and apply it to an application built in Python. 
 
-Why not Python?
+**Why not .NET?** 
 
-Python is great, we love Python. We just decided to teach this in nodeJS, it is our assumption that a Python developer will be able to take what they learn here and apply it to an application built in Python. 
-
-Why not .NET? 
-
-.NET is great, EventStoreDB is written in .NET. We felt an interpretted language is best for a general audience. 
+.NET is great. EventStoreDB is written in .NET. However, we felt an interpreted language was best for a general audience. 
 
 ## Codespaces
 
-The content is built with a configuration file for codespaces.
+The content is built using a configuration file for GitHub Codespaces, which provides a Docker environment and a browser implementation of VScode.
 
-That is the .devcontainer file you see as part of the repo. Please do not edit that. 
-
-Codespaces provides a docker environment and a browser implementation of VScode.
-
+That is the .devcontainer file you see as part of the repo. **Please do not edit that**. 
 
 ## How to use codespaces
 
-The Instructor will demonstrate
+The instructor will demonstrate the usage of Codespaces during a live training class.  For those completing the course as a self-paced endeavor, please review Exercise 0.1 in Module 1.  
 
 ## Running EventstoreDB in the Docker container
 
-This repo provides a shell script that will start and restart the EventStoreDB docker container local to the CodeSpaces container. 
+This repo provides a shell script to start and restart the EventStoreDB Docker container local to the CodeSpaces container.  The course is written so that each user has their own instance of EventStoreDB.
 
-The Instructor will demonstrate.
-
-**NOTE** The course is written so that each user has their own instance of EventStoreDB.
-
-**NOTE** Running ./start_cluser.sh will clear you current EventStoreDB instance and return an Empty instance. This is also by design. This allows to isolate each exercise and avoid dependencies or conflicts. 
+**NOTE** Running ./start_cluser.sh will clear your current EventStoreDB instance and return an Empty instance. This is purposefully designed to isolate each exercise and avoid dependencies or conflicts. 
 
 # Running the Content Locally
 
-Full instructions on setting up a local Node environment is available in EventStoreDB's "From Scratch" series.
-<provide link when I have it>
+Full instructions on setting up a local Node environment are available in EventStoreDB's "[From Scratch]" (https://academy.eventstore.com/from-scratch)  series. 
 
-If you wanted to clone this repo and run the code locally you would do the following. 
+To clone this repo and run the code locally, run the following in a terminal. 
 
 ```
 git clone <repo name>
 ```
 
-Once it is downloaded you would want to run ``` yarn install ``` to download the dependencies locally.
+Once downloaded, you will to run ``` yarn install ``` to download the dependencies locally.
 
-## Running the EventStoreDB docker container locally
+## Running the EventStoreDB Docker container locally
 
 The content in this repository will work with a locally available EventStoreDB container running in unsecured mode.
 
-Here are the instructions, https://hub.docker.com/r/eventstore/eventstore.
+Instructions: https://hub.docker.com/r/eventstore/eventstore.
 
-Basically the process is
+The process is as follows:
 1. Install Docker
 2. Run
    ```docker run --name esdb-node -it -p 2113:2113 -p 1113:1113 \
