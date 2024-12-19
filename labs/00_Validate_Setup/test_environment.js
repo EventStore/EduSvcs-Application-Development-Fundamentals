@@ -3,7 +3,7 @@ import { jsonEvent } from '@eventstore/db-client';
 import { BACKWARDS, EventStoreDBClient, FORWARDS, START } from "@eventstore/db-client";
 
 
-// # This tests you environment
+// # This tests your environment
 // # In particular
 // # 1. is node.js working?
 // # 2. Is an eventstore db instance available at localhost?
@@ -42,10 +42,6 @@ return true;
 }
 
 } 
-
-
-
-
 
 
 // Run the Three Tests
