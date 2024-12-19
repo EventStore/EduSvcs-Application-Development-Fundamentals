@@ -1,7 +1,6 @@
 import { EventStoreDBClient,START } from "@eventstore/db-client";
 import fs from 'fs';
 
-// Create an EventStoreDB client
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
 
 const readModelFile = "read_model.txt"; // <=== "read_model.txt"
@@ -12,14 +11,7 @@ const subscription = client
    fromRevision: START})
  .on("data", (resolvedEvent) => {
    handleEvent(resolvedEvent);
-})
-.on("error", (err) => {
-  console.error("Subscription error:", err);
-})
-.on("end", () => {
-  console.log("Subscription ended");
 });
-
 
 const handleEvent = async (resolvedEvent) => {
  const eventData = resolvedEvent.event?.data;
@@ -31,7 +23,6 @@ const handleEvent = async (resolvedEvent) => {
    }
 };
 
-// Function to save the read model to a file
 const saveReadModel = (model) => {
   fs.writeFileSync(readModelFile, JSON.stringify(model), 'utf8');
 };
