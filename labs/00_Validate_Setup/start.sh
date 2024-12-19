@@ -53,7 +53,7 @@ fi
 # Start a new container
 if ! docker run -d --name "$container_name" -it -p 2113:2113 -p 1113:1113 \
     eventstore/eventstore:lts --insecure --run-projections=All \
-    --enable-external-tcp --enable-atom-pub-over-http; then
+     --enable-atom-pub-over-http; then
     echo -e "Failed to start a new $container_name container"
 fi
 
