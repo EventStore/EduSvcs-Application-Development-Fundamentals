@@ -1,7 +1,6 @@
 import { EventStoreDBClient, START } from "@eventstore/db-client";
 import fs from 'fs';
 
-// Create an EventStoreDB client
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
 
 const readModelFile = "read_model.txt"; // File to save the read model
@@ -10,20 +9,17 @@ const readModelFile = "read_model.txt"; // File to save the read model
 const loadReadModel = () => {
     if (fs.existsSync(readModelFile)) {
       const data = JSON.parse(fs.readFileSync(readModelFile, 'utf8'));
-      // Convert the checkpoint back to a BigInt after deserialization
       return {
         actualSales: data.actualSales || { total: 0 },
-        checkpoint: BigInt(data.checkpoint || START)
+        checkpoint: data.checkpoint || START
       };
     } else {
       return { actualSales: { total: 0 }, checkpoint: START };
     }
   };
 
-  
 // Function to save the read model to a file
 const saveReadModel = (model, checkpoint) => {
-  // Convert the checkpoint (BigInt) to a string for serialization
   const serializedData = {
     actualSales: model,
     checkpoint: checkpoint.toString()
@@ -38,15 +34,7 @@ const subscription = client.subscribeToStream("order-123", { fromRevision: check
   .on("data", (resolvedEvent) => {
     handleEvent(resolvedEvent);
   })
-  .on("error", (err) => {
-    console.error("Subscription error:", err);
-  })
-  .on("end", () => {
-    console.log("Subscription ended");
-  });
 
-
-// Define the event handler function
 const handleEvent = async (resolvedEvent) => {
   const eventData = resolvedEvent.event?.data;
   if (eventData && resolvedEvent.event?.type === "itemShipped" && eventData.item ==="keyboard") {
@@ -56,3 +44,5 @@ const handleEvent = async (resolvedEvent) => {
     saveReadModel(actualSales, resolvedEvent.event?.revision);
   }
 };
+
+console.log("Subscription started. Listening for events...");
