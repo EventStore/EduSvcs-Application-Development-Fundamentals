@@ -1,15 +1,14 @@
-import { EventStoreDBClient,jsonEvent} from "@eventstore/db-client";
-import { FORWARDS,START } from "@eventstore/db-client";
-import { v4 as uuid } from 'uuid'	
+import { EventStoreDBClient} from "@eventstore/db-client";
+import { BACKWARDS,END } from "@eventstore/db-client";
 
 const client = EventStoreDBClient.connectionString("esdb://localhost:2113?tls=false");
 
 const events = client.readStream("order-123", {
-  direction: FORWARDS,
-  fromRevision: START,
+  direction: BACKWARDS,
+  fromRevision: END,
 });
 
 for await (const resolvedEvent of events) {
-  console.log(resolvedEvent.event?.data);
+  console.log(resolvedEvent.event?.data.amount);
 }
 client.dispose();
