@@ -33,7 +33,7 @@ TypeScript is great.  We love it, and you should look into using it. However, Ty
 
 **Why not Java?** 
 
-Jave is great.  We love Java. Since the client libraries for each language are very similar, we assume that a Java developer will be able to take what they learn from this class and apply it to Java. 
+Java is great.  We love Java. Since the client libraries for each language are very similar, we assume that a Java developer will be able to take what they learn from this class and apply it to Java. 
 
 **Why not Python?**
 
